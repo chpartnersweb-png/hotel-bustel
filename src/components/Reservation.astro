@@ -1,0 +1,9 @@
+---
+import { hotel } from '../data/hotel';
+import Icon from './Icon.astro';
+---
+<section class="reservation section" id="reservation" aria-labelledby="reservation-title"><div class="wrap">
+  <div class="reservation__intro" data-reveal><span class="eyebrow">YOUR NEXT STAY</span><h2 id="reservation-title"><span lang="en">Reservation</span><span>ご予約・お問い合わせ</span></h2><p>横浜でのご滞在を、ここから。</p></div>
+  <div class="booking-links" data-reveal>{hotel.bookings.map((booking, index) => <a href={booking.url} target="_blank" rel="noopener noreferrer"><span class="booking-links__number">0{index + 1}</span><span class="booking-links__name"><small>{booking.english}</small><span>{booking.name}</span><span class="booking-links__action">空室を確認する</span></span><span class="booking-links__icon"><Icon name="external" /></span></a>)}</div>
+  <div class="reservation__phone" data-reveal><p>お電話でのお問い合わせ</p><a href={hotel.phoneHref}><Icon name="phone" />{hotel.phone}</a><p>フロント {hotel.frontHours}<span>（平日・土日祝共通）</span></p></div>
+</div></section>

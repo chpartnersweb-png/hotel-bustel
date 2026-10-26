@@ -1,0 +1,19 @@
+---
+import { hotel, navigation } from '../data/hotel';
+import Icon from './Icon.astro';
+---
+<header class="site-header" data-header>
+  <a class="wordmark" href="#top" aria-label="HOTEL BUSTEL トップへ">HOTEL <span>BUSTEL</span></a>
+  <button class="menu-toggle" type="button" aria-label="メニューを開く" aria-haspopup="dialog" aria-controls="site-menu" aria-expanded="false" data-menu-open hidden>
+    <span class="menu-toggle__lines" aria-hidden="true"><i></i><i></i></span><span class="menu-toggle__label">MENU</span>
+  </button>
+  <noscript><a class="nojs-reserve" href="#reservation">ご予約</a></noscript>
+</header>
+<dialog class="site-menu" id="site-menu" aria-labelledby="menu-title" data-lenis-prevent>
+  <div class="site-menu__top"><p class="wordmark" id="menu-title">HOTEL <span>BUSTEL</span></p><button class="menu-close" type="button" aria-label="メニューを閉じる" data-menu-close><Icon name="close" /><span>CLOSE</span></button></div>
+  <div class="site-menu__body">
+    <p class="site-menu__location">YOKOHAMA<br />ISEZAKICHO 6</p>
+    <nav aria-label="メインナビゲーション"><ol class="menu-links">{navigation.map((item, index) => <li><a href={item.href}><span class="menu-links__number">0{index + 1}</span><span class="menu-links__english" lang="en">{item.english}</span><span class="menu-links__japanese">{item.japanese}</span><Icon /></a></li>)}</ol></nav>
+    <div class="site-menu__contact"><p>{hotel.address}</p><a href={hotel.phoneHref}>{hotel.phone}</a><p>フロント {hotel.frontHours}</p></div>
+  </div>
+</dialog>

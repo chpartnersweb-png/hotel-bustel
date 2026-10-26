@@ -1,0 +1,10 @@
+---
+import { Image } from 'astro:assets';
+import hero from '../assets/bustel-hero-concept-v1.png';
+---
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero__media"><Image src={hero} alt="" class="hero__image" widths={[640, 960, 1280, 1672]} sizes="100vw" format="webp" quality={85} loading="eager" fetchpriority="high" /></div>
+  <div class="hero__shade" aria-hidden="true"></div>
+  <h1 class="hero__copy" id="hero-title"><span>横浜、</span><span>伊勢佐木町に泊まる。</span></h1>
+  <a class="hero__scroll" href="#price" aria-label="料金案内へスクロール"><span>SCROLL</span><span class="hero__scroll-line" aria-hidden="true"></span></a>
+</section>

@@ -1,0 +1,12 @@
+---
+import { hotel } from '../data/hotel';
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+---
+<section class="price section" id="price" aria-labelledby="price-title">
+  <div class="arrival-note wrap"><p>YOKOHAMA / ISEZAKICHO</p><p>{hotel.station}<span>徒歩 <b>{hotel.walkMinutes}</b> 分</span></p><p>客室<span>全 <b>{hotel.rooms}</b> 室</span></p></div>
+  <div class="wrap price__body">
+    <SectionHeading number="01" english="Price" japanese="料金案内" id="price-title" />
+    <div class="price__content"><div class="price-ledger" data-reveal>{hotel.prices.map(price => <div class="price-ledger__row"><p class="price-ledger__label"><span>{price.label}</span><span lang="en">{price.english}</span></p><p class="price-ledger__amount"><span>{price.amount.toLocaleString('ja-JP')}</span><span>円<small>／1室</small></span></p></div>)}</div><p class="section-note">ご希望の日程・人数での料金と空室状況は、<br class="desktop-break" />各予約サイトでご確認ください。</p><a class="text-link" href="#reservation">空室・ご予約のご案内<Icon /></a></div>
+  </div>
+</section>

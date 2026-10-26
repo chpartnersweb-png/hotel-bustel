@@ -1,0 +1,5 @@
+---
+interface Props { number: string; english: string; japanese: string; id: string; }
+const { number, english, japanese, id } = Astro.props;
+---
+<div class="section-heading" data-reveal><span class="section-heading__number">{number}</span><h2 id={id}><span class="section-heading__english" lang="en">{english}</span><span class="section-heading__japanese">{japanese}</span></h2></div>

@@ -1,0 +1,6 @@
+---
+import { hotel } from '../data/hotel';
+import Icon from './Icon.astro';
+---
+<footer class="site-footer"><div class="wrap"><a class="wordmark" href="#top" aria-label="HOTEL BUSTEL トップへ">HOTEL <span>BUSTEL</span></a><p>YOKOHAMA / ISEZAKICHO</p><small>© {new Date().getFullYear()} {hotel.name}</small></div></footer>
+<div class="floating-actions" data-floating-actions inert aria-hidden="true"><a class="floating-actions__phone" href={hotel.phoneHref} aria-label={`${hotel.phone}へ電話する`}><Icon name="phone" /><span>お問い合わせ</span></a><a class="floating-actions__reserve" href="#reservation"><span>空室・ご予約</span><Icon /></a></div>

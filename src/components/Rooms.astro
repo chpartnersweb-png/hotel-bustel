@@ -1,0 +1,17 @@
+---
+import { Image } from 'astro:assets';
+import { photos } from '../data/hotel';
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+---
+<section class="rooms section" id="rooms" aria-labelledby="rooms-title">
+  <div class="wrap">
+    <div class="rooms__intro"><SectionHeading number="02" english="Rooms" japanese="客室" id="rooms-title" /><p class="rooms__lead" data-reveal>旅の時間に、<br />ひと息つける場所を。</p></div>
+    <div class="room-composition">{photos.slice(0, 2).map((photo, index) => <figure class:list={['room-photo', `room-photo--${index + 1}`]} data-reveal><button class="photo-button" type="button" data-photo-index={index} aria-label={`${photo.title}の写真を拡大`}><div class="photo-frame"><Image src={photo.image} alt={photo.alt} widths={[480, 800, 1290]} sizes={index === 0 ? '(min-width: 800px) 58vw, 100vw' : '(min-width: 800px) 35vw, 100vw'} format="webp" quality={85} loading="lazy" data-parallax-image /></div><span class="photo-zoom" aria-hidden="true"><Icon name="plus" /></span></button><figcaption><span class="photo-number">0{index + 1}</span><span>{photo.title}<small>{photo.note}</small></span></figcaption></figure>)}</div>
+    <div class="room-details">
+      <div class="room-details__copy" data-reveal><span class="eyebrow">A CLOSER LOOK</span><p>身支度を整えて、<br />また、街へ。</p><p class="section-note">洗面スペースやバスルームも、<br />写真でご覧いただけます。</p></div>
+      {photos.slice(2, 4).map((photo, index) => <figure class="detail-photo" data-reveal><button class="photo-button" type="button" data-photo-index={index + 2} aria-label={`${photo.title}の写真を拡大`}><div class="photo-frame"><Image src={photo.image} alt={photo.alt} widths={[360, 640, 900]} sizes="(min-width: 800px) 28vw, 46vw" format="webp" loading="lazy" /></div><span class="photo-zoom" aria-hidden="true"><Icon name="plus" /></span></button><figcaption>{photo.title}</figcaption></figure>)}
+    </div>
+    <p class="rooms__note section-note">写真は客室・設備の一例です。<br class="mobile-break" />お部屋の詳細は各予約サイトでご確認ください。</p>
+  </div>
+</section>

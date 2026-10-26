@@ -1,0 +1,19 @@
+---
+import { Image } from 'astro:assets';
+import { hotel, photos } from '../data/hotel';
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+const entrance = photos[4];
+const rows: { label: string; value: string; note?: string }[] = [
+  { label: '施設名', value: hotel.name },
+  { label: 'フロント対応', value: hotel.frontHours, note: '平日・土日祝共通' },
+  { label: 'チェックイン', value: hotel.checkIn },
+  { label: 'チェックアウト', value: hotel.checkOut },
+  { label: '定休日', value: hotel.closed },
+  { label: '客室数', value: `${hotel.rooms}室` },
+];
+---
+<section class="stay section" id="information" aria-labelledby="stay-title"><div class="wrap stay__layout">
+  <div class="stay__photo" data-reveal><button class="photo-button" type="button" data-photo-index="4" aria-label="エントランスの写真を拡大"><div class="photo-frame"><Image src={entrance.image} alt={entrance.alt} widths={[480, 800, 1100]} sizes="(min-width: 800px) 36vw, 80vw" format="webp" quality={85} loading="lazy" /></div><span class="photo-zoom" aria-hidden="true"><Icon name="plus" /></span></button><p class="stay__photo-label">WELCOME TO HOTEL BUSTEL</p></div>
+  <div class="stay__content"><SectionHeading number="03" english="Information" japanese="ご滞在案内" id="stay-title" /><dl class="info-list" data-reveal>{rows.map(row => <div><dt>{row.label}</dt><dd>{row.value}{row.note && <small>{row.note}</small>}</dd></div>)}<div><dt>電話番号</dt><dd><a class="inline-link" href={hotel.phoneHref}>{hotel.phone}</a></dd></div></dl><p class="section-note">ご到着についてのお問い合わせは、<br />フロント対応時間内にお電話ください。</p></div>
+</div></section>

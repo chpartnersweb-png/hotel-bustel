@@ -1,0 +1,15 @@
+---
+import { getImage } from 'astro:assets';
+import { photos } from '../data/hotel';
+import Icon from './Icon.astro';
+const gallery = await Promise.all(photos.map(async photo => {
+  const full = await getImage({ src: photo.image, width: photo.image.width, format: 'webp', quality: 90 });
+  return { src: full.src, alt: photo.alt, title: photo.title, note: photo.note, width: photo.image.width, height: photo.image.height };
+}));
+---
+<script is:inline type="application/json" id="gallery-data" set:html={JSON.stringify(gallery).replace(/</g, '\u003c')} />
+<dialog class="lightbox" id="photo-viewer" aria-labelledby="photo-title" data-lenis-prevent>
+  <div class="lightbox__top"><p>HOTEL BUSTEL <span>PHOTO GALLERY</span></p><button type="button" class="lightbox__close" data-photo-close aria-label="写真を閉じる"><Icon name="close" /></button></div>
+  <div class="lightbox__stage" data-photo-stage><figure><img class="lightbox__image" alt="" width="1290" height="968" data-photo-image /><figcaption><span id="photo-title" data-photo-title></span><span data-photo-note></span></figcaption></figure></div>
+  <div class="lightbox__controls"><button type="button" data-photo-prev aria-label="前の写真"><Icon name="arrow" /></button><p aria-live="polite" aria-atomic="true"><span data-photo-counter>01</span><span class="lightbox__total"> / {String(gallery.length).padStart(2, '0')}</span></p><button type="button" data-photo-next aria-label="次の写真"><Icon name="arrow" /></button></div>
+</dialog>
