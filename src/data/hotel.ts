@@ -6,10 +6,17 @@ import entrance from '../assets/IMG_3282.JPG';
 
 export const hotel = {
   name: 'HOTEL BUSTEL',
+  nameJa: 'ホテルバステル',
   phone: '045-315-7155',
   phoneHref: 'tel:0453157155',
   address: '神奈川県横浜市中区伊勢佐木町6−140−7',
   addressLines: ['神奈川県横浜市中区', '伊勢佐木町6−140−7'],
+  postalAddress: {
+    country: 'JP',
+    region: '神奈川県',
+    locality: '横浜市中区',
+    street: '伊勢佐木町6−140−7',
+  },
   station: '京急黄金町駅',
   walkMinutes: 5,
   rooms: 20,

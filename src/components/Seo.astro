@@ -1,0 +1,104 @@
+---
+import { getImage } from 'astro:assets';
+import { hotel, photos, mapUrl } from '../data/hotel';
+import { site } from '../data/site.mjs';
+
+const canonical = site.url;
+const title = `${hotel.name}（${hotel.nameJa}）｜横浜・黄金町駅徒歩${hotel.walkMinutes}分`;
+const description = `横浜市中区・伊勢佐木町の${hotel.name}（${hotel.nameJa}）。${hotel.station}から徒歩${hotel.walkMinutes}分、全${hotel.rooms}室。客室写真、料金、フロント対応時間、アクセスをご案内。楽天トラベル・Trip.comで空室確認・ご予約いただけます。`;
+
+// Share a real guest-room photograph; Astro writes this JPEG at build time.
+const roomPhoto = photos[0];
+const socialImage = await getImage({
+  src: roomPhoto.image, width: 1200, height: 630,
+  fit: 'cover', format: 'jpg', quality: 85,
+});
+const imageUrl = new URL(socialImage.src, canonical).href;
+const hotelId = new URL('#hotel', canonical).href;
+const websiteId = new URL('#website', canonical).href;
+const webpageId = new URL('#webpage', canonical).href;
+const imageId = new URL('#guest-room-image', canonical).href;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Hotel',
+      '@id': hotelId,
+      name: hotel.name,
+      alternateName: [hotel.nameJa, 'ホテル バステル'],
+      url: canonical,
+      description,
+      telephone: hotel.phone,
+      numberOfRooms: hotel.rooms,
+      address: {
+        '@type': 'PostalAddress',
+        addressCountry: hotel.postalAddress.country,
+        addressRegion: hotel.postalAddress.region,
+        addressLocality: hotel.postalAddress.locality,
+        streetAddress: hotel.postalAddress.street,
+      },
+      image: { '@id': imageId },
+      hasMap: mapUrl,
+      sameAs: hotel.bookings.map(booking => booking.url),
+      mainEntityOfPage: { '@id': webpageId },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': websiteId,
+      url: canonical,
+      name: hotel.name,
+      alternateName: hotel.nameJa,
+      inLanguage: site.language,
+      publisher: { '@id': hotelId },
+    },
+    {
+      '@type': 'WebPage',
+      '@id': webpageId,
+      url: canonical,
+      name: title,
+      description,
+      inLanguage: site.language,
+      isPartOf: { '@id': websiteId },
+      about: { '@id': hotelId },
+      mainEntity: { '@id': hotelId },
+      primaryImageOfPage: { '@id': imageId },
+    },
+    {
+      '@type': 'ImageObject',
+      '@id': imageId,
+      url: imageUrl,
+      contentUrl: imageUrl,
+      width: 1200,
+      height: 630,
+      caption: `${hotel.name}の客室の一例`,
+      inLanguage: site.language,
+    },
+  ],
+};
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<link rel="canonical" href={canonical} />
+<link rel="sitemap" type="application/xml" href={new URL('sitemap.xml', canonical).href} />
+
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:site_name" content={hotel.name} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:secure_url" content={imageUrl} />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={roomPhoto.alt} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+<meta name="twitter:image:alt" content={roomPhoto.alt} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData).replace(/</g, '\u003c')} />

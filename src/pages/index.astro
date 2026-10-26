@@ -8,32 +8,17 @@ import Access from '../components/Access.astro';
 import Reservation from '../components/Reservation.astro';
 import Lightbox from '../components/Lightbox.astro';
 import Footer from '../components/Footer.astro';
-import { hotel } from '../data/hotel';
+import Seo from '../components/Seo.astro';
 import '../styles/global.css';
-
-const title = 'HOTEL BUSTEL｜黄金町駅徒歩5分・横浜 伊勢佐木町のホテル';
-const description = `${hotel.station}から徒歩${hotel.walkMinutes}分。横浜・伊勢佐木町のHOTEL BUSTEL。全${hotel.rooms}室の客室写真、料金、アクセスをご案内。楽天トラベル・Trip.comの空室確認、ご予約はこちらから。`;
-const structuredData = {
-  '@context': 'https://schema.org', '@type': 'Hotel', name: hotel.name,
-  telephone: hotel.phone, numberOfRooms: hotel.rooms,
-  address: { '@type': 'PostalAddress', addressCountry: 'JP', addressRegion: '神奈川県', addressLocality: '横浜市中区', streetAddress: '伊勢佐木町6−140−7' },
-};
 ---
 <!doctype html>
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="description" content={description} />
     <meta name="theme-color" content="#182936" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="ja_JP" />
-    <meta property="og:site_name" content={hotel.name} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/bustel-favicon.svg" />
-    <title>{title}</title>
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData).replace(/</g, '\u003c')} />
+    <Seo />
   </head>
   <body>
     <a class="skip-link" href="#price">本文へスキップ</a>

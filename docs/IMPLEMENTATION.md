@@ -20,11 +20,11 @@
 - 名称・料金・予約URL・電話・住所・営業時間・写真情報：`src/data/hotel.ts`。
 - 実写：提供JPG5点。Trip.comの透かしがあるPNG4点は使用していない。
 - ヒーロー画像：`src/assets/bustel-hero-concept-v1.png`。元の案は `public/images/generated/bustel-hero-concept-v1.png` に保存。
-- 生成画像には「イメージビジュアル（AI生成）」と表示。実際の施設写真として紹介していない。
+- ヒーローの「イメージビジュアル（AI生成）」表記は、その後のユーザー指定で削除済み。画像の生成プロンプトと出所は記録に保持。
 - 生成プロンプト：`docs/planning/hero-image-prompt.md`。
 - チェックイン14:30（最終22:00）・チェックアウト12:00は、制作計画時に参照した楽天トラベルおよびTrip.comの掲載情報に基づく。
 - 料金はユーザー提供の1室9,000円／15,000円。「税込」「1泊」「〜」は加えていない。
-- 公開URL未確定のためcanonical・og:url・絶対URLのOG画像・サイトマップは未設定。
+- ユーザー指定の公開URL `https://hotel-bustel.pages.dev/` を基にcanonical・og:url・OG画像・構造化データ・robots.txt・サイトマップを設定済み。詳細は `SEO.md`。ローカルソースのみの変更で、公開反映と生成結果は未確認。
 
 ## 確認状態
 
